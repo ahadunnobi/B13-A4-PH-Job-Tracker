@@ -17,15 +17,15 @@
         <div class="grid grid-cols-3 gap-8 p-4">
             <div class="p-4 border-2 border-gray-300  rounded-2xl bg-blue-300">
                 <p class="font-bold">Total</p>
-                <p class="text-black-300 font-bold text-xl">0</p>
+                <p id="totalJob"class="text-black-300 font-bold text-xl">0</p>
             </div>
             <div class="p-4 border-2 border-gray-300   rounded-2xl bg-green-300">
                 <p class="font-bold">Interview</p>
-                <p class="text-green-600 font-bold text-xl">0</p>
+                <p id="Interview" class="text-green-600 font-bold text-xl">0</p>
             </div>
             <div class="p-4 border-2 border-gray-300 rounded-2xl bg-red-300">
                 <p class="font-bold">Rejected</p>
-                <p class="text-red-600 font-bold text-xl">0</p>
+                <p id="Rejected" class="text-red-600 font-bold text-xl">0</p>
             </div>
         </div>
     </header>
@@ -33,7 +33,7 @@
     <main class="w-[75%] mx-auto">
         <div class="flex justify-between ">
             <h1 class="text-xl text-blue-900 font-bold">Available Jobs</h1>
-            <p class="text-gray-600 font-bold text-xl"><Span>0</Span> Jobs</p>
+            <p class="text-gray-600 font-bold text-xl"><Span id="AllJob">0</Span> Jobs</p>
         </div>
         <div class="p-2.5">
             <button class="btn btn-outline bg-blue-800 text-white">All</button>
@@ -238,7 +238,7 @@
             </div>
         </section>
     </main>
-
+    <script src="script.js"></script>
 </body>
 
 </html>
