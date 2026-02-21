@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="jobs.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://kit.fontawesome.com/fff25c06fa.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -39,9 +40,34 @@
             <button class="btn btn-outline bg-blue-800 text-white">Interview</button>
             <button class="btn btn-outline bg-blue-800 text-white">Rejected</button>
         </div>
-        
+
+        <section id="jobs" class="space-y-2">
+
+          
+            <div class="job flex flex-row justify-between border p-6">
+             
+                <div class="space-y-2">
+                    <div>
+                        <p class="company name text-4xl">Mobile First Corp</p>
+                        <p class="position text-2xl">React Native Developer</p>
+                    </div>
+                    <p class="sallary">Remote • Full-time • $130,000 - $175,000</p>
+                    <!-- <p class="status bg-gray-100 rounded-2xl px-12"> Not Applied</p> -->
+                    <p class="responsibility">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
+                    <div class="flex gap-5">
+                        <button class="btn btn-outline btn-success">Interview</button>
+                        <button class="btn btn-outline btn-error">Rejected</button>
+                    </div>
+                </div>
+
+
+                <div>
+                    <button class="btn p-3 rounded-2xl"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </div>
+        </section>
     </main>
-    
+
 </body>
 
 </html>
