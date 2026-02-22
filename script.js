@@ -134,9 +134,8 @@ mainContainer.addEventListener("click", function (event) {
 
     if (currentStatus === 'btn-Interview') renderJob();
     if (currentStatus === 'btn-Rejected') renderRejectedJob();
-
     calculateJob();
-  } else if (event.target.closest('.fa-trash-can')) {
+  } else if (event.target.closest('.delete-btn')) {
     const parent = event.target.closest('.job');
     const companyName = parent.querySelector(".companyName").innerText;
 
@@ -179,7 +178,7 @@ function renderJob() {
 
 
                 <div>
-                    <button class="btn p-3 rounded-2xl"><i class="fa-solid fa-trash-can"></i></button>
+                    <button class="btn p-3 rounded-2xl delete-btn"><i class="fa-solid fa-trash-can"></i></button>
                 </div>`;
     filteredjob.appendChild(div);
 
@@ -207,7 +206,7 @@ function renderRejectedJob() {
 
 
                 <div>
-                    <button class="btn p-3 rounded-2xl"><i class="fa-solid fa-trash-can"></i></button>
+                    <button class="btn p-3 rounded-2xl delete-btn"><i class="fa-solid fa-trash-can"></i></button>
                 </div>`;
     filteredjob.appendChild(div);
 
