@@ -2,9 +2,20 @@
 
 ### 1. What is the difference between getElementById, getElementsByClassName, and querySelector / querySelectorAll?
 
-## By using getElementByID We can get A unique And specific element of HTML . And by using getElementByClassName We can find A specific class name of HTML On the other handThe universal selector By using queryselector We can find the first element of matched Css selector Like ID tag or element And by using querySelectorAll we can find all element Matching the CSS selector
+## `Ans`By using getElementByID We can get A unique And specific element of HTML . And by using getElementByClassName We can find A specific class name of HTML On the other handThe universal selector By using queryselector We can find the first element of matched Css selector Like ID tag or element And by using querySelectorAll we can find all element Matching the CSS selector
 
 ### 2. How do you create and insert a new element into the DOM?
+
+## `Ans` To create a new element Into the DOM we have to use Document.createElement() in a Variable And then add value text or stle and then we have to add this variable to a parent element Using Parent.appened().
+```
+<div class="parent">
+
+</div>
+
+const myNewp = document.createElement('p');
+myNewp.textContent = "I'm a brand new p!";
+parent.append(myNewp)
+```
 
 ### 3. What is Event Bubbling? And how does it work?
 
