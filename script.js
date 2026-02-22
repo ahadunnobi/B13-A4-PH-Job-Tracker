@@ -19,8 +19,16 @@ let btnRejected = document.getElementById("btn-Rejected");
 
 
 function calculateJob() {
-  totalJob.innerText = getTotalJob.children.length;
-  allJob.innerText = getTotalJob.children.length;
+  const totalCount = getTotalJob.children.length;
+  totalJob.innerText = totalCount;
+
+  if (currentStatus === 'btn-Interview') {
+    allJob.innerText = `${interviewList.length} of ${totalCount}`;
+  } else if (currentStatus === 'btn-Rejected') {
+    allJob.innerText = `${rejectedList.length} of ${totalCount}`;
+  } else {
+    allJob.innerText = totalCount;
+  }
 
   Interview.innerText = interviewList.length;
   Rejected.innerText = rejectedList.length;
@@ -60,6 +68,7 @@ function toggle(id) {
     filteredjob.classList.remove('hidden');
     renderRejectedJob();
   }
+  calculateJob();
 }
 mainContainer.addEventListener("click", function (event) {
 
