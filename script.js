@@ -1,18 +1,22 @@
 let interviewList = [];
 let rejectedList = [];
+let currentStatus = 'all';
 
 let totalJob = document.getElementById("totalJob");
 let allJob = document.getElementById("AllJob");
 let Interview = document.getElementById("Interview");
 let Rejected = document.getElementById("Rejected");
 
+
 let getTotalJob = document.getElementById("jobs");
 const mainContainer = document.querySelector("main");
 let filteredjob = document.getElementById("filtered-job");
 
+
 let btnAllJob = document.getElementById("btn-alljob");
 let btnInterview = document.getElementById("btn-Interview");
 let btnRejected = document.getElementById("btn-Rejected");
+
 
 function calculateJob() {
   totalJob.innerText = getTotalJob.children.length;
@@ -21,8 +25,12 @@ function calculateJob() {
   Interview.innerText = interviewList.length;
   Rejected.innerText = rejectedList.length;
 }
+
 calculateJob();
+
+
 function toggle(id) {
+
   btnAllJob.classList.remove("bg-blue-800", "text-white");
   btnInterview.classList.remove("bg-blue-800", "text-white");
   btnRejected.classList.remove("bg-blue-800", "text-white");
@@ -32,45 +40,94 @@ function toggle(id) {
   btnRejected.classList.add("bg-gray-300", "text-black");
 
   const selected = document.getElementById(id);
-  
+  currentStatus = id;  
   selected.classList.remove("bg-gray-300", "text-black");
   selected.classList.add("bg-blue-800", "text-white");
   
   if(id == 'btn-Interview'){
+
     getTotalJob.classList.add('hidden');
     filteredjob.classList.remove('hidden');
+
   }else if(id == 'btn-alljob'){
+
     getTotalJob.classList.remove('hidden');
-    filteredjob.classList.add('hidden')
+    filteredjob.classList.add('hidden');
+
+  }else if(id == 'btn-Rejected'){
+     getTotalJob.classList.add('hidden');
+     filteredjob.classList.remove('hidden');
+     renderRejectedJob();
   }
 }
 mainContainer.addEventListener("click", function (event) {
+
   if (event.target.classList.contains("btn-Interview")) {
+
     const parent = event.target.parentNode.parentNode;
     const companyName = parent.querySelector(".companyName");
     const positionName = parent.querySelector(".position");
     const sallary = parent.querySelector(".sallary");
     const responsibility = parent.querySelector(".responsibility");
     const IsApplied = parent.querySelector(".IsApplied");
-    // parent.querySelector('.IsApplied').innerText = 'Interview'
-    console.log(parent.querySelector('.IsApplied').innerText = 'Interview');
+    
+    parent.querySelector('.IsApplied').innerText = 'Interview'
     parent.querySelector('.IsApplied ').classList.add('bg-green-500', 'btn-outline', 'btn-success', 'font-bold','text-white')
+    
     const jobInfo = {
       companyName,
       positionName,
       sallary,
-      IsApplied ,
+      IsApplied: 'Interview',
       responsibility,
     };
+   
     const isJobExist = interviewList.find(
       (item) => item.companyName == jobInfo.companyName,
     );
+   
     if (!isJobExist) {
       interviewList.push(jobInfo);
     }
+    rejectedList = rejectedList.filter(item => item.companyName != jobInfo.companyName);
     renderJob();
+    calculateJob();
+  }else if (event.target.classList.contains("btn-Rejected")) {
+
+    const parent = event.target.parentNode.parentNode;
+    const companyName = parent.querySelector(".companyName");
+    const positionName = parent.querySelector(".position");
+    const sallary = parent.querySelector(".sallary");
+    const responsibility = parent.querySelector(".responsibility");
+    const IsApplied = parent.querySelector(".IsApplied");
+    
+    parent.querySelector('.IsApplied').innerText = 'Rejected'
+    parent.querySelector('.IsApplied ').classList.add('bg-red-500', 'btn-outline', 'btn-eror', 'font-bold','text-white')
+    
+    const jobInfo = {
+      companyName,
+      positionName,
+      sallary,
+      IsApplied: 'Rejected',
+      responsibility,
+    };
+   
+    const isJobExist = rejectedList.find(
+      (item) => item.companyName == jobInfo.companyName,
+    );
+   
+    if (!isJobExist) {
+      rejectedList.push(jobInfo);
+    }
+    interviewList = interviewList.filter(item => item.companyName != jobInfo.companyName);
+    if(currentStatus == 'btn-Interview'){
+        renderJob();
+    }
+   
+    calculateJob();
   }
 });
+
 function renderJob(){
     filteredjob.innerHTML='';
     for(let job of interviewList){
@@ -82,7 +139,35 @@ function renderJob(){
                         <p class="position text-2xl">${job.positionName.innerText}</p>
                     </div>
                     <p class="sallary">${job.sallary.innerText}</p>
-                    <button class="btn bg-green-500 btn-outline rounded-2xl font-bold border-gray-400 btn-successfont-bold text-white">${job.IsApplied.innerText}</button>
+                    <button class="btn   rounded-2xl  border-gray-400 btn-success font-bold text-white">${job.IsApplied.innerText}</button>
+                    <p class="responsibility">${job.responsibility.innerText}</p>
+                    <div class="flex gap-5">
+                        <button class="btn btn-outline btn-success font-bold btn-Interview">Interview</button>
+                        <button class="btn btn-outline btn-error font-bold">Rejected</button>
+                    </div>
+                </div>
+
+
+                <div>
+                    <button class="btn p-3 rounded-2xl"><i class="fa-solid fa-trash-can"></i></button>
+                </div>`;
+    filteredjob.appendChild(div);
+
+    
+    }
+}
+function renderRejectedJob(){
+    filteredjob.innerHTML='';
+    for(let job of rejectedList){
+        let div =document.createElement('div');
+        div.className ="job flex flex-row justify-between border bg-primary-content border-gray-400 rounded-3xl p-6"
+        div.innerHTML=`<div class="space-y-2">
+                    <div>
+                        <p class="companyName text-4xl pb-2 font-bold">${job.companyName.innerText}</p>
+                        <p class="position text-2xl">${job.positionName.innerText}</p>
+                    </div>
+                    <p class="sallary">${job.sallary.innerText}</p>
+                    <button class="btn  btn-error rounded-2xl  border-gray-400 font-bold text-white">${job.IsApplied.innerText}</button>
                     <p class="responsibility">${job.responsibility.innerText}</p>
                     <div class="flex gap-5">
                         <button class="btn btn-outline btn-success font-bold btn-Interview">Interview</button>
