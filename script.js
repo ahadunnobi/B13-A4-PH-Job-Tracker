@@ -166,7 +166,25 @@ mainContainer.addEventListener("click", function (event) {
   }
 });
 
+function renderEmptyState(message) {
+  filteredjob.innerHTML = `
+    <div class="flex flex-col items-center justify-center py-20 px-4 text-center space-y-4 border-2 border-dashed border-gray-300 rounded-3xl bg-gray-50">
+      <div class="text-6xl text-gray-300">
+        <i class="fa-solid fa-clipboard-list"></i>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold text-gray-500">${message}</h3>
+        <p class="text-gray-400 mt-2">Try moving some jobs to this category to track your progress.</p>
+      </div>
+    </div>
+  `;
+}
+
 function renderJob() {
+  if (interviewList.length === 0) {
+    renderEmptyState("No Interview invitations yet!");
+    return;
+  }
   filteredjob.innerHTML = '';
   for (let job of interviewList) {
     let div = document.createElement('div');
@@ -195,6 +213,10 @@ function renderJob() {
   }
 }
 function renderRejectedJob() {
+  if (rejectedList.length === 0) {
+    renderEmptyState("No Rejected applications.");
+    return;
+  }
   filteredjob.innerHTML = '';
   for (let job of rejectedList) {
     let div = document.createElement('div');
