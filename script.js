@@ -40,40 +40,45 @@ function toggle(id) {
   btnRejected.classList.add("bg-gray-300", "text-black");
 
   const selected = document.getElementById(id);
-  currentStatus = id;  
+  currentStatus = id;
   selected.classList.remove("bg-gray-300", "text-black");
   selected.classList.add("bg-blue-800", "text-white");
-  
-  if(id == 'btn-Interview'){
+
+  if (id == 'btn-Interview') {
 
     getTotalJob.classList.add('hidden');
     filteredjob.classList.remove('hidden');
+    renderJob();
 
-  }else if(id == 'btn-alljob'){
+  } else if (id == 'btn-alljob') {
 
     getTotalJob.classList.remove('hidden');
     filteredjob.classList.add('hidden');
 
-  }else if(id == 'btn-Rejected'){
-     getTotalJob.classList.add('hidden');
-     filteredjob.classList.remove('hidden');
-     renderRejectedJob();
+  } else if (id == 'btn-Rejected') {
+    getTotalJob.classList.add('hidden');
+    filteredjob.classList.remove('hidden');
+    renderRejectedJob();
   }
 }
 mainContainer.addEventListener("click", function (event) {
 
   if (event.target.classList.contains("btn-Interview")) {
 
-    const parent = event.target.parentNode.parentNode;
-    const companyName = parent.querySelector(".companyName");
-    const positionName = parent.querySelector(".position");
-    const sallary = parent.querySelector(".sallary");
-    const responsibility = parent.querySelector(".responsibility");
-    const IsApplied = parent.querySelector(".IsApplied");
-    
-    parent.querySelector('.IsApplied').innerText = 'Interview'
-    parent.querySelector('.IsApplied ').classList.add('bg-green-500', 'btn-outline', 'btn-success', 'font-bold','text-white')
-    
+    const parent = event.target.closest('.job');
+    const companyName = parent.querySelector(".companyName").innerText;
+    const positionName = parent.querySelector(".position").innerText;
+    const sallary = parent.querySelector(".sallary").innerText;
+    const responsibility = parent.querySelector(".responsibility").innerText;
+
+    // Update main list if clicked there
+    const mainJob = Array.from(getTotalJob.children).find(child => child.querySelector('.companyName').innerText === companyName);
+    if (mainJob) {
+      const isAppliedBtn = mainJob.querySelector('.IsApplied');
+      isAppliedBtn.innerText = 'Interview';
+      isAppliedBtn.className = 'btn IsApplied rounded-2xl border-gray-400 bg-green-500 btn-outline btn-success font-bold text-white';
+    }
+
     const jobInfo = {
       companyName,
       positionName,
@@ -81,29 +86,35 @@ mainContainer.addEventListener("click", function (event) {
       IsApplied: 'Interview',
       responsibility,
     };
-   
+
     const isJobExist = interviewList.find(
       (item) => item.companyName == jobInfo.companyName,
     );
-   
+
     if (!isJobExist) {
       interviewList.push(jobInfo);
     }
     rejectedList = rejectedList.filter(item => item.companyName != jobInfo.companyName);
-    renderJob();
-    calculateJob();
-  }else if (event.target.classList.contains("btn-Rejected")) {
 
-    const parent = event.target.parentNode.parentNode;
-    const companyName = parent.querySelector(".companyName");
-    const positionName = parent.querySelector(".position");
-    const sallary = parent.querySelector(".sallary");
-    const responsibility = parent.querySelector(".responsibility");
-    const IsApplied = parent.querySelector(".IsApplied");
-    
-    parent.querySelector('.IsApplied').innerText = 'Rejected'
-    parent.querySelector('.IsApplied ').classList.add('bg-red-500', 'btn-outline', 'btn-eror', 'font-bold','text-white')
-    
+    if (currentStatus === 'btn-Interview') renderJob();
+    if (currentStatus === 'btn-Rejected') renderRejectedJob();
+    calculateJob();
+  } else if (event.target.classList.contains("btn-Rejected")) {
+
+    const parent = event.target.closest('.job');
+    const companyName = parent.querySelector(".companyName").innerText;
+    const positionName = parent.querySelector(".position").innerText;
+    const sallary = parent.querySelector(".sallary").innerText;
+    const responsibility = parent.querySelector(".responsibility").innerText;
+
+    // Update main list if clicked there
+    const mainJob = Array.from(getTotalJob.children).find(child => child.querySelector('.companyName').innerText === companyName);
+    if (mainJob) {
+      const isAppliedBtn = mainJob.querySelector('.IsApplied');
+      isAppliedBtn.innerText = 'Rejected';
+      isAppliedBtn.className = 'btn IsApplied rounded-2xl border-gray-400 bg-red-500 btn-outline btn-error font-bold text-white';
+    }
+
     const jobInfo = {
       companyName,
       positionName,
@@ -111,39 +122,58 @@ mainContainer.addEventListener("click", function (event) {
       IsApplied: 'Rejected',
       responsibility,
     };
-   
+
     const isJobExist = rejectedList.find(
       (item) => item.companyName == jobInfo.companyName,
     );
-   
+
     if (!isJobExist) {
       rejectedList.push(jobInfo);
     }
     interviewList = interviewList.filter(item => item.companyName != jobInfo.companyName);
-    if(currentStatus == 'btn-Interview'){
-        renderJob();
-    }
-   
+
+    if (currentStatus === 'btn-Interview') renderJob();
+    if (currentStatus === 'btn-Rejected') renderRejectedJob();
+
+    calculateJob();
+  } else if (event.target.closest('.fa-trash-can')) {
+    const parent = event.target.closest('.job');
+    const companyName = parent.querySelector(".companyName").innerText;
+
+    // Remove from memory lists
+    interviewList = interviewList.filter(item => item.companyName !== companyName);
+    rejectedList = rejectedList.filter(item => item.companyName !== companyName);
+
+    // Remove from DOM (both main and filtered)
+    const allMatchingJobs = document.querySelectorAll('.job');
+    allMatchingJobs.forEach(job => {
+      if (job.querySelector('.companyName').innerText === companyName) {
+        job.remove();
+      }
+    });
+
+    if (currentStatus === 'btn-Interview') renderJob();
+    if (currentStatus === 'btn-Rejected') renderRejectedJob();
     calculateJob();
   }
 });
 
-function renderJob(){
-    filteredjob.innerHTML='';
-    for(let job of interviewList){
-        let div =document.createElement('div');
-        div.className ="job flex flex-row justify-between border bg-primary-content border-gray-400 rounded-3xl p-6"
-        div.innerHTML=`<div class="space-y-2">
+function renderJob() {
+  filteredjob.innerHTML = '';
+  for (let job of interviewList) {
+    let div = document.createElement('div');
+    div.className = "job flex flex-row justify-between border bg-primary-content border-gray-400 rounded-3xl p-6"
+    div.innerHTML = `<div class="space-y-2">
                     <div>
-                        <p class="companyName text-4xl pb-2 font-bold">${job.companyName.innerText}</p>
-                        <p class="position text-2xl">${job.positionName.innerText}</p>
+                        <p class="companyName text-4xl pb-2 font-bold">${job.companyName}</p>
+                        <p class="position text-2xl">${job.positionName}</p>
                     </div>
-                    <p class="sallary">${job.sallary.innerText}</p>
-                    <button class="btn   rounded-2xl  border-gray-400 btn-success font-bold text-white">${job.IsApplied.innerText}</button>
-                    <p class="responsibility">${job.responsibility.innerText}</p>
+                    <p class="sallary">${job.sallary}</p>
+                    <button class="btn IsApplied rounded-2xl border-gray-400 btn-success font-bold text-white">${job.IsApplied}</button>
+                    <p class="responsibility">${job.responsibility}</p>
                     <div class="flex gap-5">
                         <button class="btn btn-outline btn-success font-bold btn-Interview">Interview</button>
-                        <button class="btn btn-outline btn-error font-bold">Rejected</button>
+                        <button class="btn btn-outline btn-error font-bold btn-Rejected">Rejected</button>
                     </div>
                 </div>
 
@@ -153,25 +183,25 @@ function renderJob(){
                 </div>`;
     filteredjob.appendChild(div);
 
-    
-    }
+
+  }
 }
-function renderRejectedJob(){
-    filteredjob.innerHTML='';
-    for(let job of rejectedList){
-        let div =document.createElement('div');
-        div.className ="job flex flex-row justify-between border bg-primary-content border-gray-400 rounded-3xl p-6"
-        div.innerHTML=`<div class="space-y-2">
+function renderRejectedJob() {
+  filteredjob.innerHTML = '';
+  for (let job of rejectedList) {
+    let div = document.createElement('div');
+    div.className = "job flex flex-row justify-between border bg-primary-content border-gray-400 rounded-3xl p-6"
+    div.innerHTML = `<div class="space-y-2">
                     <div>
-                        <p class="companyName text-4xl pb-2 font-bold">${job.companyName.innerText}</p>
-                        <p class="position text-2xl">${job.positionName.innerText}</p>
+                        <p class="companyName text-4xl pb-2 font-bold">${job.companyName}</p>
+                        <p class="position text-2xl">${job.positionName}</p>
                     </div>
-                    <p class="sallary">${job.sallary.innerText}</p>
-                    <button class="btn  btn-error rounded-2xl  border-gray-400 font-bold text-white">${job.IsApplied.innerText}</button>
-                    <p class="responsibility">${job.responsibility.innerText}</p>
+                    <p class="sallary">${job.sallary}</p>
+                    <button class="btn IsApplied btn-error rounded-2xl border-gray-400 font-bold text-white">${job.IsApplied}</button>
+                    <p class="responsibility">${job.responsibility}</p>
                     <div class="flex gap-5">
                         <button class="btn btn-outline btn-success font-bold btn-Interview">Interview</button>
-                        <button class="btn btn-outline btn-error font-bold">Rejected</button>
+                        <button class="btn btn-outline btn-error font-bold btn-Rejected">Rejected</button>
                     </div>
                 </div>
 
@@ -181,6 +211,6 @@ function renderRejectedJob(){
                 </div>`;
     filteredjob.appendChild(div);
 
-    
-    }
+
+  }
 }
