@@ -27,8 +27,9 @@ parent.append(myNewp)
 
 # 5. What is the difference between preventDefault() and stopPropagation() methods?
 
+### `Ans` Both method are used to interrupt The flow of an event While preventDefault() Used to Stop browser default action On the other hand StopPropagationI used To Stop The event from traveling Up to the dom tree
 ---
-# submition Link: 
+# Submition Link: 
 
 1. GitHub Repository Link: https://github.com/ahadunnobi/B13-A4-PH-Job-Tracker.git
 2. Live Site Link: https://ahadunnobi.github.io/B13-A4-PH-Job-Tracker/
