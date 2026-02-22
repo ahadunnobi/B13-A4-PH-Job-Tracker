@@ -18,6 +18,7 @@ parent.append(myNewp)
 ```
 
 ### 3. What is Event Bubbling? And how does it work?
+## `Ans` Event bubbling is Way how browserHandel user interaction.It's a three-step process First trigger we click a specific child element And then a click listener on that child element from run first And the event moves to immediate parentThen the grandparent And so on So on.
 
 ### 4. What is Event Delegation in JavaScript? Why is it useful?
 
