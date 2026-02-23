@@ -7,15 +7,7 @@
 # 2. How do you create and insert a new element into the DOM?
 
 ### `Ans` To create a new element Into the DOM we have to use Document.createElement() in a Variable And then add value text or stle and then we have to add this variable to a parent element Using Parent.appened().
-```
-<div class="parent">
 
-</div>
-
-const myNewp = document.createElement('p');
-myNewp.textContent = "I'm a brand new p!";
-parent.append(myNewp)
-```
 
 # 3. What is Event Bubbling? And how does it work?
 
