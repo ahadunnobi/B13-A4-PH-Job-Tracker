@@ -80,7 +80,7 @@ mainContainer.addEventListener("click", function (event) {
     const sallary = parent.querySelector(".sallary").innerText;
     const responsibility = parent.querySelector(".responsibility").innerText;
 
-    // Update main list if clicked there
+    
     const mainJob = Array.from(getTotalJob.children).find(child => child.querySelector('.companyName').innerText === companyName);
     if (mainJob) {
       const isAppliedBtn = mainJob.querySelector('.IsApplied');
@@ -116,7 +116,6 @@ mainContainer.addEventListener("click", function (event) {
     const sallary = parent.querySelector(".sallary").innerText;
     const responsibility = parent.querySelector(".responsibility").innerText;
 
-    // Update main list if clicked there
     const mainJob = Array.from(getTotalJob.children).find(child => child.querySelector('.companyName').innerText === companyName);
     if (mainJob) {
       const isAppliedBtn = mainJob.querySelector('.IsApplied');
@@ -148,11 +147,10 @@ mainContainer.addEventListener("click", function (event) {
     const parent = event.target.closest('.job');
     const companyName = parent.querySelector(".companyName").innerText;
 
-    // Remove from memory lists
+
     interviewList = interviewList.filter(item => item.companyName !== companyName);
     rejectedList = rejectedList.filter(item => item.companyName !== companyName);
 
-    // Remove from DOM (both main and filtered)
     const allMatchingJobs = document.querySelectorAll('.job');
     allMatchingJobs.forEach(job => {
       if (job.querySelector('.companyName').innerText === companyName) {
