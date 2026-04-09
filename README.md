@@ -1,27 +1,45 @@
-# Answers to Questions
+# 📱 Job Application Tracker
 
-# 1. What is the difference between getElementById, getElementsByClassName, and querySelector / querySelectorAll?
-
-### `Ans`By using getElementByID We can get A unique And specific element of HTML . And by using getElementByClassName We can find A specific class name of HTML On the other handThe universal selector By using queryselector We can find the first element of matched Css selector Like ID tag or element And by using querySelectorAll we can find all element Matching the CSS selector
-
-# 2. How do you create and insert a new element into the DOM?
-
-### `Ans` To create a new element Into the DOM we have to use Document.createElement() in a Variable And then add value text or stle and then we have to add this variable to a parent element Using Parent.appened().
+A streamlined web application designed to help job seekers organize their recruitment journey. Track applications, manage interview status, and keep your job search data organized in one place.
 
 
-# 3. What is Event Bubbling? And how does it work?
+## 🌐 Live Demo
+[Explore the Live Site](https://ahadunnobi.github.io/Job-Tracker/)
 
-### `Ans` Event bubbling is Way how browserHandel user interaction.It's a three-step process First trigger we click a specific child element And then a click listener on that child element from run first And the event moves to immediate parentThen the grandparent And so on So on.
+## 🚀 Project Overview
+The **Job Application Tracker** is a lightweight, frontend-only solution for managing job hunt data. It provides an intuitive dashboard to track various job status phases, ensuring you never lose track of a potential opportunity.
 
-# 4. What is Event Delegation in JavaScript? Why is it useful?
+### 🛠️ Technology Stack
+- **Structure**: Semantic HTML5
+- **Logic**: Vanilla JavaScript (ES6+)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) & [DaisyUI](https://daisyui.com/)
+- **Icons**: [FontAwesome](https://fontawesome.com/)
 
-### `Ans` Event delegation is a design pattern that leverage Event bubbling to handle event efficiently Without Adding Listener to every single child We add even listener to parent Than a user clicked a specific child The click Travel up to the parent Inside the parent functionWe can see exactly who is element Started the event By using event.target.
+### ✨ Core Features
+- **Application Dashboard**: A central hub to view all active job listings.
+- **Status Management**: Toggle between "Interview", "Rejected", and "Not Applied" statuses effortlessly.
+- **Live Tracking**: Real-time counter for Total, Interview, and Rejected jobs.
+- **Dynamic Filtering**: Filter your job list by status to focus on what matters most.
+- **Data Deletion**: Easily remove job entries from your tracker.
+- **Responsive UI**: Optimized for mobile, tablet, and desktop viewing experiences.
 
-# 5. What is the difference between preventDefault() and stopPropagation() methods?
+### 📦 Dependencies
+- [DaisyUI v5](https://cdn.jsdelivr.net/npm/daisyui@5) (via CDN)
+- [Tailwind CSS v4](https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4) (via CDN)
+- [FontAwesome v6](https://kit.fontawesome.com/) (via CDN)
 
-### `Ans` Both method are used to interrupt The flow of an event While preventDefault() Used to Stop browser default action On the other hand StopPropagationI used To Stop The event from traveling Up to the dom tree
----
-# Submition Link: 
+## 💻 Local Setup
+To run this project on your local machine:
 
-1. GitHub Repository Link: https://github.com/ahadunnobi/B13-A4-PH-Job-Tracker.git
-2. Live Site Link: https://ahadunnobi.github.io/B13-A4-PH-Job-Tracker/
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/ahadunnobi/B13-A4-PH-Job-Tracker.git
+   ```
+2. **Navigate to the project directory**:
+   ```bash
+   cd B13-A4-PH-Job-Tracker
+   ```
+3. **Open the project**:
+   Open `index.html` in your preferred web browser (Chrome, Firefox, Edge, etc.).
+
+-
